@@ -1,3 +1,4 @@
+// Import necessary dependencies and assets
 import React, { useState } from 'react';
 import { icon1, icon2, icon3, icon4, icon5} from "./assets/image";
 import icon6 from "./assets/icon6.png"
@@ -10,11 +11,15 @@ import Web3 from 'web3';
 
 
 const TokenBalance = () => {
+  // Initializing Web3 instances for different networks
   const web3 = new Web3('https://rpc.mantle.xyz/');
+
+  // State variables to store token balances
   const [mantleNativeTokenBalance, setMantleNativeTokenBalance] = useState(0);
   const [lineaNativeTokenBalance, setLineaNativeTokenBalance] = useState(0);
   const [kromaNativeTokenBalance, setKromaNativeTokenBalance] = useState(0);
   
+  // Function to fetch native token balance of Mantle network
   const getNativeTokenBalanceOfMantle = async (contractAddress) => {
       try {
           const web3 = new Web3('https://rpc.mantle.xyz/');
@@ -36,6 +41,7 @@ const TokenBalance = () => {
       }
   })();
  
+    // Function to fetch native token balance of Kroma network
   const getNativeTokenBalanceOfKroma = async (contractAddress) => {
       try {
           const web3 = new Web3('https://api.kroma.network');
@@ -56,6 +62,8 @@ const TokenBalance = () => {
           console.error('Error:', error.message);
       }
   })();
+
+   // Function to fetch native token balance of Linea network
   const getNativeTokenBalanceOfLinea = async (contractAddress) => {
       try {
           const web3 = new Web3('https://rpc.linea.build/');
@@ -67,6 +75,7 @@ const TokenBalance = () => {
           throw error;
       }
   };
+  // Initial fetch of token balances for Mantle, Kroma, and Linea networks
   (async () => {
       try {
           const contractAddress = '0xDCBc586cAb42a1D193CaCD165a81E5fbd9B428d7';
@@ -76,8 +85,10 @@ const TokenBalance = () => {
           console.error('Error:', error.message);
       }
   })();
+   // State variables for modal control
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
+   // Functions to open and close the modal
   const openModal = () => {
     setModalIsOpen(true);
   };
@@ -85,9 +96,12 @@ const TokenBalance = () => {
   const closeModal = () => {
     setModalIsOpen(false);
   };
+
+  // State variables for wallet address and token balances
   const [walletAddress, setWalletAddress] = useState('');
   const [tokenBalances, setTokenBalances] = useState([]);
 
+  // Function to handle form submission and fetch token balances
   const handleSubmit = async() => {
     await getNativeTokenBalanceOfMantle('0xDCBc586cAb42a1D193CaCD165a81E5fbd9B428d7');
     const balances = [
@@ -99,6 +113,8 @@ const TokenBalance = () => {
     setModalIsOpen(true);
     setTokenBalances(balances);
   };
+
+   // Function to handle modal close
   const handleClose = () =>{
     setModalIsOpen(false);
   }

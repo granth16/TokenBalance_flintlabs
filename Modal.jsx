@@ -3,6 +3,7 @@ import Modal from "react-modal";
 import "./styles/modal.css";
 // import crossimage from "../../../assets/images/X.svg";
 
+//Modal to alert the user if there is more than 10% change in token's balance in 12 hours
 const CustomModal = ({ isOpen, onRequestClose, children }) => {
   return (
     <Modal
